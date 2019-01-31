@@ -11,7 +11,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import imgBlank from 'assets/lease/blank_img.svg';
+import imgBlank from './assets/blank_img.svg';
 
 export default class ImgCatch extends React.PureComponent {
   static propTypes = {
