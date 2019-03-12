@@ -139,16 +139,16 @@ export default class Pagination extends React.PureComponent {
         {(showQuickJumper || showSizeChanger) && (
           <li className={styles.options}>
             {showQuickJumper && (
-            <div className={styles.jumper}>
-              跳至
-              <input
-                type="text"
-                value={this.state.jumpPage}
-                onChange={this.onJumperChange}
-                onKeyDown={this.onJumper}
-              />
-              页
-            </div>
+              <div className={styles.jumper}>
+                跳至
+                <input
+                  type="text"
+                  value={this.state.jumpPage}
+                  onChange={this.onJumperChange}
+                  onKeyDown={this.onJumper}
+                />
+                页
+              </div>
             )}
             {showSizeChanger && (
             <div className={styles.pages}>
@@ -170,7 +170,7 @@ export default class Pagination extends React.PureComponent {
           </li>
         )}
         <li className={styles['pagination-pages']}>
-            页码:
+          页码:
           {' '}
           {page}
         </li>
