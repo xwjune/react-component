@@ -2,7 +2,7 @@
  * 倒计时
  *
  * @param {number} count - 计数
- * @param {string} [type='hour'] - 类型【hour-小时，min-分钟】
+ * @param {string} [type='normal'] - 类型【normal-常规，hour-小时，minute-分钟】
  * @param {string } [prefix] - 文案前缀
  * @param {string } [suffix] - 文案后缀
  * @param {function } [onComplete] - 倒计时结束回调
@@ -31,7 +31,7 @@ export default class Countdown extends React.PureComponent {
   };
 
   static defaultProps = {
-    type: 'hour',
+    type: 'normal',
     prefix: '',
     suffix: '',
   };
@@ -44,7 +44,10 @@ export default class Countdown extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.startTimer(this.props.count);
+    const { count } = this.props;
+    if (count > 0) {
+      this.startTimer(count);
+    }
   }
 
   componentWillUnmount() {
@@ -56,7 +59,7 @@ export default class Countdown extends React.PureComponent {
   startTimer = (count) => {
     this.intervalId = setInterval(() => {
       count--;
-      if (count !== 0) {
+      if (count > 0) {
         this.setState({
           tip: this.renderTip(count),
         });
@@ -71,21 +74,32 @@ export default class Countdown extends React.PureComponent {
   };
 
   renderTip = (count) => {
+    if (count <= 0) {
+      return '';
+    }
+
     let result = '';
     switch (this.props.type) {
+      case 'normal':
+        result = count;
+        break;
       case 'hour':
         result = `${secToMin(count)}`;
         break;
-      case 'min':
+      case 'minute':
         result = `${zeroFill(count)}`;
         break;
       // no default
     }
+
     return result;
   };
 
   render() {
-    const { prefix, suffix } = this.props;
+    const {
+      prefix,
+      suffix,
+    } = this.props;
     const { tip } = this.state;
 
     return <span>{`${prefix}${tip}${suffix}`}</span>;

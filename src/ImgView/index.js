@@ -46,9 +46,7 @@ export default class ImgView extends React.PureComponent {
     );
   };
 
-  handleShow = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
+  handleShow = () => {
     if (this.props.src && !this.state.isErr) {
       this.view = document.createElement('div');
       document.body.appendChild(this.view);
