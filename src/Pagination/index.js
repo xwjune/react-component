@@ -16,8 +16,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cs from 'classnames';
-import constants from 'utils/constants';
 import styles from './index.scss';
+
+const PAGE_SIZE = 10;
 
 export default class Pagination extends React.PureComponent {
   static propTypes = {
@@ -38,7 +39,7 @@ export default class Pagination extends React.PureComponent {
 
   state = {
     pageSizeOptions: this.props.pageSizeOptions, // 每页可以显示条数
-    pageSize: constants.PAGE_SIZE, // 每页条数
+    pageSize: PAGE_SIZE, // 每页条数
     current: 1, // 当前页数
     jumpPage: '', // 跳转至指定某页
   };
@@ -135,7 +136,10 @@ export default class Pagination extends React.PureComponent {
     const isLast = dataSize < pageSize; // 是否最后一页
 
     return (
-      <ul className={styles.pagination} unselectable="unselectable">
+      <ul
+        className={styles.pagination}
+        unselectable="unselectable"
+      >
         {(showQuickJumper || showSizeChanger) && (
           <li className={styles.options}>
             {showQuickJumper && (
@@ -151,21 +155,21 @@ export default class Pagination extends React.PureComponent {
               </div>
             )}
             {showSizeChanger && (
-            <div className={styles.pages}>
-              <select
-                value={pageSize}
-                onChange={this.onPageSizeChange}
-              >
-                {
-                  pageSizeOptions.map((el) => (
-                    <option value={el} key={el}>
-                      {el}
-                      条/页
-                    </option>
-                  ))
-                }
-              </select>
-            </div>
+              <div className={styles.pages}>
+                <select
+                  value={pageSize}
+                  onChange={this.onPageSizeChange}
+                >
+                  {
+                    pageSizeOptions.map((el) => (
+                      <option value={el} key={el}>
+                        {el}
+                        条/页
+                      </option>
+                    ))
+                  }
+                </select>
+              </div>
             )}
           </li>
         )}
