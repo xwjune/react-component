@@ -1,4 +1,8 @@
-.pagination {
+@import '../../style/variables.scss';
+
+$pagination-prefix-cls: '#{$cls-prefix}-pagination';
+
+.#{$pagination-prefix-cls} {
   margin: 12px 20px;
   list-style: none;
   box-sizing: border-box;

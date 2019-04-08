@@ -10,13 +10,13 @@
  * @param {boolean} [showSizeChanger=false] - 是否可以改变pageSize
  * @param {string[]} [pageSizeOptions=['10','20','30','40']] - 指定每页可以显示多少条
  *
- * @author 小巷 <xwjune@163.com>
  * @date 2018/04/17
  */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cs from 'classnames';
-import styles from './index.scss';
+import getPrefixCls from '../../utils/getPrefixCls';
+import './index.scss';
 
 const PAGE_SIZE = 10;
 
@@ -137,13 +137,13 @@ export default class Pagination extends React.PureComponent {
 
     return (
       <ul
-        className={styles.pagination}
+        className={getPrefixCls('pagination')}
         unselectable="unselectable"
       >
         {(showQuickJumper || showSizeChanger) && (
-          <li className={styles.options}>
+          <li className="options">
             {showQuickJumper && (
-              <div className={styles.jumper}>
+              <div className="jumper">
                 跳至
                 <input
                   type="text"
@@ -155,7 +155,7 @@ export default class Pagination extends React.PureComponent {
               </div>
             )}
             {showSizeChanger && (
-              <div className={styles.pages}>
+              <div className="pages">
                 <select
                   value={pageSize}
                   onChange={this.onPageSizeChange}
@@ -173,19 +173,19 @@ export default class Pagination extends React.PureComponent {
             )}
           </li>
         )}
-        <li className={styles['pagination-pages']}>
+        <li className="pages">
           页码:
           {' '}
           {page}
         </li>
         <li
-          className={cs(styles.prev, isFirst ? styles.disabled : '')}
+          className={cs('prev', isFirst ? 'disabled' : '')}
           onClick={() => this.onPageChange('prev')}
         >
           上一页
         </li>
         <li
-          className={cs(styles.next, isLast ? styles.disabled : '')}
+          className={cs('next', isLast ? 'disabled' : '')}
           onClick={() => this.onPageChange('next')}
         >
           下一页

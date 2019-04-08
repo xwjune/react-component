@@ -6,22 +6,16 @@
  * @param {function} [onError] - 回调
  * @param {*} - img其他属性
  *
- * @author 小巷 <xwjune@163.com>
  * @date 2019/01/15
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import imgBlank from './assets/blank_img.svg';
 
 export default class ImgCatch extends React.PureComponent {
   static propTypes = {
     src: PropTypes.string,
-    blanksrc: PropTypes.string,
+    blanksrc: PropTypes.string.isRequired,
     onError: PropTypes.func,
-  };
-
-  static defaultProps = {
-    blanksrc: imgBlank,
   };
 
   state = {

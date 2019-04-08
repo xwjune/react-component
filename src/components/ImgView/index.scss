@@ -1,4 +1,8 @@
-.view {
+@import '../../style/variables.scss';
+
+$imgview-prefix-cls: '#{$cls-prefix}-img-view';
+
+.#{$imgview-prefix-cls} {
   position: fixed;
   z-index: 99999;
   top: 0;

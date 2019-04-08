@@ -7,7 +7,6 @@
  * @param {string } [suffix] - 文案后缀
  * @param {function } [onComplete] - 倒计时结束回调
  *
- * @author 小巷 <xwjune@163.com>
  * @date 2019/01/30
  */
 import React from 'react';

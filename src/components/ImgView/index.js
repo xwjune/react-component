@@ -1,14 +1,13 @@
 /**
  * 移动端图片全屏预览
  *
- * @author 小巷 <xwjune@163.com>
  * @date 2019/01/17
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import ImgCatch from '../ImgCatch';
-import styles from './index.scss';
+import getPrefixCls from '../../utils/getPrefixCls';
+import './index.scss';
 
 export default class ImgView extends React.PureComponent {
   static propTypes = {
@@ -30,15 +29,12 @@ export default class ImgView extends React.PureComponent {
     this.setState({
       isErr: true,
     });
-    if (this.props.onError) {
-      this.props.onError();
-    }
   };
 
   renderView = (src) => {
     return (
       <div
-        className={styles.view}
+        className={getPrefixCls('img-view')}
         onClick={this.handleHide}
       >
         <img src={src} alt="预览图片" />
@@ -71,9 +67,9 @@ export default class ImgView extends React.PureComponent {
 
   render() {
     return (
-      <ImgCatch
+      <img
+        alt="图片"
         {...this.props}
-        onError={this.onError}
         onClick={this.handleShow}
       />
     );
