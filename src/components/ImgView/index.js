@@ -12,7 +12,6 @@ import './index.scss';
 export default class ImgView extends React.PureComponent {
   static propTypes = {
     src: PropTypes.string,
-    onError: PropTypes.func,
   };
 
   state = {
@@ -70,6 +69,7 @@ export default class ImgView extends React.PureComponent {
       <img
         alt="图片"
         {...this.props}
+        onError={this.onError}
         onClick={this.handleShow}
       />
     );

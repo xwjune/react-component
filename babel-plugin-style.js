@@ -16,7 +16,7 @@ module.exports = () => {
 
         const { value } = node.source;
 
-        if (value.endsWith('.scss')) {
+        if (process.env.SASS_ENV === 'true' && value.endsWith('.scss')) {
           node.source.value = value.replace('.scss', '.css');
         }
       },

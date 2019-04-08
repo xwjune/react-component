@@ -2,7 +2,7 @@
  * 图片异常捕获
  *
  * @param {string} src - 图片资源
- * @param {string} [blanksrc] - 空白页图片资源
+ * @param {string} blanksrc - 空白页图片资源
  * @param {function} [onError] - 回调
  * @param {*} - img其他属性
  *
@@ -34,11 +34,17 @@ export default class ImgCatch extends React.PureComponent {
   };
 
   render() {
+    const {
+      blanksrc,
+      src,
+      ...restProps
+    } = this.props;
+
     return (
       <img
         alt="图片"
-        {...this.props}
-        src={this.state.imgErr ? this.props.blanksrc : this.props.src}
+        {...restProps}
+        src={this.state.imgErr ? blanksrc : src}
         onError={this.onError}
       />
     );
