@@ -1,7 +1,10 @@
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin"); // 提取css到单独文件的插件
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 提取css到单独文件的插件
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩css插件
+const packageConfig = require('./package.json');
 const loaders = require('./webpack.loader');
+const entry = require('./webpack.entry');
 
 const reactExternal = {
   root: 'React',
@@ -18,7 +21,10 @@ const reactDOMExternal = {
 
 module.exports = {
   mode: 'production',
-  entry: './src/index.js',
+  entry: [
+    ...entry,
+    './src/index.js',
+  ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'components-react.js',
@@ -32,7 +38,7 @@ module.exports = {
     rules: loaders,
   },
   externals: {
-    'react': reactExternal,
+    react: reactExternal,
     'react-dom': reactDOMExternal,
   },
   plugins: [
@@ -40,5 +46,6 @@ module.exports = {
       filename: 'components-react.css',
     }),
     new OptimizeCssAssetsPlugin(),
+    new webpack.BannerPlugin(`v${packageConfig.version} | Copyright © 小巷 <xwjune@163.com> | All rights reserved.`),
   ],
 };

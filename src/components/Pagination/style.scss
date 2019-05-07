@@ -1,4 +1,4 @@
-@import '../../style/variables.scss';
+@import '../../style/variables';
 
 $pagination-prefix-cls: '#{$cls-prefix}-pagination';
 
@@ -22,7 +22,8 @@ $pagination-prefix-cls: '#{$cls-prefix}-pagination';
     select {
       display: inline-block;
       padding: 4px 11px;
-      width: 100%;
+      margin: 0 4px;
+      width: 50px;
       height: 32px;
       font-size: 14px;
       line-height: 1.5;
@@ -32,9 +33,8 @@ $pagination-prefix-cls: '#{$cls-prefix}-pagination';
       border: 1px solid #d9d9d9;
       border-radius: 4px;
       transition: all .3s;
-      margin: 0 4px;
-      width: 50px;
       outline: 0;
+      box-sizing: border-box;
     }
     select {
       width: auto;

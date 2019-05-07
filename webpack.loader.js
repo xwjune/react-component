@@ -1,4 +1,5 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const autoprefixer = require('autoprefixer');
 
 const loaders = [
   {
@@ -13,10 +14,10 @@ const loaders = [
       MiniCssExtractPlugin.loader,
       'css-loader',
       {
-        loader: "postcss-loader",
+        loader: 'postcss-loader',
         options: {
           plugins: [
-            require("autoprefixer")({
+            autoprefixer({
               browsers: [
                 'last 5 versions',
                 'last 5 Chrome versions',

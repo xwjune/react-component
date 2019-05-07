@@ -7,7 +7,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import getPrefixCls from '../../utils/getPrefixCls';
-import './index.scss';
 
 export default class ImgView extends React.PureComponent {
   static propTypes = {
@@ -36,7 +35,10 @@ export default class ImgView extends React.PureComponent {
         className={getPrefixCls('img-view')}
         onClick={this.handleHide}
       >
-        <img src={src} alt="预览图片" />
+        <img
+          src={src}
+          alt="预览图片"
+        />
       </div>
     );
   };

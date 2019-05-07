@@ -2,7 +2,7 @@
  * 倒计时
  *
  * @param {number} count - 计数
- * @param {string} [type='normal'] - 类型【normal-常规，hour-小时，minute-分钟】
+ * @param {string} [type='normal'] - 类型【normal-常规，hour-小时】
  * @param {string } [prefix] - 文案前缀
  * @param {string } [suffix] - 文案后缀
  * @param {function } [onComplete] - 倒计时结束回调
@@ -85,10 +85,8 @@ export default class Countdown extends React.PureComponent {
       case 'hour':
         result = `${secToMin(count)}`;
         break;
-      case 'minute':
-        result = `${zeroFill(count)}`;
-        break;
-      // no default
+      default:
+        result = count;
     }
 
     return result;

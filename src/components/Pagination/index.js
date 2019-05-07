@@ -16,7 +16,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cs from 'classnames';
 import getPrefixCls from '../../utils/getPrefixCls';
-import './index.scss';
 
 const PAGE_SIZE = 10;
 

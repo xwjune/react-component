@@ -3,7 +3,7 @@
  *
  * @param {string} src - 图片资源
  * @param {string} blanksrc - 空白页图片资源
- * @param {function} [onError] - 回调
+ * @param {function} [onError] - 图片加载失败回调
  * @param {*} - img其他属性
  *
  * @date 2019/01/15
