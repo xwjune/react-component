@@ -27,8 +27,8 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'components-react.js',
-    library: 'ComponentsReact',
+    filename: 'jun-react.js',
+    library: 'junReact',
     libraryTarget: 'umd',
   },
   resolve: {
@@ -43,7 +43,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'components-react.css',
+      filename: 'jun-react.css',
     }),
     new OptimizeCssAssetsPlugin(),
     new webpack.BannerPlugin(`v${packageConfig.version} | Copyright © 小巷 <xwjune@163.com> | All rights reserved.`),

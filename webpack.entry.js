@@ -25,6 +25,6 @@ const logs = [
   ...entries,
   '',
 ];
-console.log(logs.join('\n'));
+console.log(logs.join('\n')); // eslint-disable-line no-console
 
 module.exports = entries;

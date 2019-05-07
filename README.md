@@ -5,13 +5,13 @@
 Install with npm:
 
 ```bash
-npm install --save-dev components-react
+npm install --save-dev jun-react
 ```
 
 Install with yarn:
 
 ```bash
-yarn add components-react --dev
+yarn add jun-react --dev
 ```
 
 ## Usage
@@ -19,7 +19,7 @@ yarn add components-react --dev
 ES6 module:
 
 ```js
-import { Countdown } from 'components-react';
+import { Countdown } from 'jun-react';
 
 // 60秒倒计时
 <Countdown count={60} suffix="s" />
@@ -32,17 +32,17 @@ Script:
 <html>
 <head>
   <meta charset="utf-8">
-  <title>components-react</title>
-  <link rel="stylesheet" type="text/css" href="components-react.css">
+  <title>jun-react</title>
+  <link rel="stylesheet" type="text/css" href="jun-react.css">
 </head>
 <body>
   <div id="root"></div>
   <script type="text/javascript" charset="utf-8" src="react.js"></script>
   <script type="text/javascript" charset="utf-8" src="react-dom.js"></script>
   <script type="text/javascript" charset="utf-8" src="browser.js"></script>
-  <script type="text/javascript" charset="utf-8" src="components-react.js"></script>
+  <script type="text/javascript" charset="utf-8" src="jun-react.js"></script>
   <script type="text/babel">
-    const Countdown = ComponentsReact.Countdown;
+    const Countdown = junReact.Countdown;
     ReactDOM.render(
       <Countdown count={10} />,
       document.getElementById('root')
@@ -60,7 +60,7 @@ Script:
 ### Pagination
 **缺省总条数的分页**
 
-样式：`components-react/lib/components/Pagination/style[.module].css`
+样式：`jun-react/lib/components/Pagination/style[.module].css`
 
 | Property | Description | Type | Default |
 | :------- | :---------- | :--- | :------ |
@@ -95,7 +95,7 @@ Script:
 ### ImgView
 **移动端图片全屏预览**
 
-样式：`components-react/lib/components/ImgView/style[.module].css`
+样式：`jun-react/lib/components/ImgView/style[.module].css`
 
 | Property | Description | Type | Default |
 | :------- | :---------- | :--- | :------ |

@@ -1,5 +1,5 @@
 {
-  "name": "components-react",
+  "name": "jun-react",
   "version": "0.0.1",
   "description": "components of React",
   "main": "index.js",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xwjune/components-react.git"
+    "url": "git+https://github.com/xwjune/react-component.git"
   },
   "keywords": [
     "react",
@@ -31,9 +31,9 @@
   "author": "小巷 <xwjune@163.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/xwjune/components-react/issues"
+    "url": "https://github.com/xwjune/react-component/issues"
   },
-  "homepage": "https://github.com/xwjune/components-react#readme",
+  "homepage": "https://github.com/xwjune/react-component#readme",
   "files": [
     "dist",
     "lib",
