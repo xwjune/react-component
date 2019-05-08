@@ -21,7 +21,7 @@ const getEntry = (paths) => {
 getEntry(path.resolve('./src/components'));
 
 const logs = [
-  '> Style Map:',
+  '> Webpack style Map:',
   ...entries,
   '',
 ];

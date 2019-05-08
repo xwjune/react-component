@@ -18,11 +18,16 @@ yarn add jun-react --dev
 
 ES6 module:
 
-```js
+```jsx
+import React from 'react';
 import { Countdown } from 'jun-react';
 
 // 60秒倒计时
-<Countdown count={60} suffix="s" />
+const Demo = () => (
+  <Countdown count={60} suffix="s" />
+);
+
+export default Demo;
 ```
 
 Script:
@@ -43,8 +48,9 @@ Script:
   <script type="text/javascript" charset="utf-8" src="jun-react.js"></script>
   <script type="text/babel">
     const Countdown = junReact.Countdown;
+    // 60秒倒计时
     ReactDOM.render(
-      <Countdown count={10} />,
+      <Countdown count={60} suffix="s" />,
       document.getElementById('root')
     );
   </script>
