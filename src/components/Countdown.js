@@ -22,7 +22,7 @@ function secToMin(seconds) {
 
 export default class Countdown extends React.PureComponent {
   static propTypes = {
-    count: PropTypes.number.isRequired,
+    count: PropTypes.number,
     type: PropTypes.string,
     prefix: PropTypes.string,
     suffix: PropTypes.string,
@@ -30,6 +30,7 @@ export default class Countdown extends React.PureComponent {
   };
 
   static defaultProps = {
+    count: 0,
     type: 'normal',
     prefix: '',
     suffix: '',
@@ -73,12 +74,17 @@ export default class Countdown extends React.PureComponent {
   };
 
   renderTip = (count) => {
+    const {
+      type,
+      prefix,
+      suffix,
+    } = this.props;
     if (count <= 0) {
       return '';
     }
 
-    let result = '';
-    switch (this.props.type) {
+    let result;
+    switch (type) {
       case 'normal':
         result = count;
         break;
@@ -89,16 +95,14 @@ export default class Countdown extends React.PureComponent {
         result = count;
     }
 
-    return result;
+    return `${prefix}${result}${suffix}`;
   };
 
   render() {
-    const {
-      prefix,
-      suffix,
-    } = this.props;
     const { tip } = this.state;
-
-    return <span>{`${prefix}${tip}${suffix}`}</span>;
+    if (tip === '') {
+      return null;
+    }
+    return <span>{tip}</span>;
   }
 }
