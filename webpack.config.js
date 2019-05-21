@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 提取css到单独文件的插件
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩css插件
-const packageConfig = require('./package.json');
+const pkg = require('./package.json');
 const loaders = require('./webpack.loader');
 const entry = require('./webpack.entry');
 
@@ -21,13 +21,15 @@ const reactDOMExternal = {
 
 module.exports = {
   mode: 'production',
-  entry: [
-    ...entry,
-    './src/index.js',
-  ],
+  entry: {
+    [pkg.name]: [
+      ...entry,
+      './src/index',
+    ],
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'jun-react.js',
+    filename: '[name].js',
     library: 'junReact',
     libraryTarget: 'umd',
   },
@@ -43,9 +45,9 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'jun-react.css',
+      filename: '[name].css',
     }),
     new OptimizeCssAssetsPlugin(),
-    new webpack.BannerPlugin(`v${packageConfig.version} | Copyright © 小巷 <xwjune@163.com> | All rights reserved.`),
+    new webpack.BannerPlugin(`${pkg.name} v${pkg.version}\n\nCopyright ${pkg.author}, Inc.\nAll rights reserved.`),
   ],
 };

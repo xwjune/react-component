@@ -19,22 +19,20 @@ yarn add jun-react --dev
 ES6 module:
 
 ```jsx
-import React from 'react';
 import { Countdown } from 'jun-react';
 
 // 60秒倒计时
-const Demo = () => (
-  <Countdown count={60} suffix="s" />
+ReactDOM.render(
+  <Countdown count={60} suffix="s" />,
+  mountNode
 );
-
-export default Demo;
 ```
 
 Script:
 
 ```html
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
   <meta charset="utf-8">
   <title>jun-react</title>
@@ -59,14 +57,14 @@ Script:
 ```
 
 ## Note
-部分组件需要引入样式。若项目使用CSS Modules，则引入style.module.css
+部分组件需要引入样式。若使用`CSS Modules`，则引入`style.module.css`。
 
 ## Components
 
 ### Pagination
 **缺省总条数的分页**
 
-样式：`jun-react/lib/components/Pagination/style[.module].css`
+样式：`jun-react/lib/components/Pagination/style.css`
 
 | Property | Description | Type | Default |
 | :------- | :---------- | :--- | :------ |
@@ -101,7 +99,7 @@ Script:
 ### ImgView
 **移动端图片全屏预览**
 
-样式：`jun-react/lib/components/ImgView/style[.module].css`
+样式：`jun-react/lib/components/ImgView/style.css`
 
 | Property | Description | Type | Default |
 | :------- | :---------- | :--- | :------ |

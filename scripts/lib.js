@@ -22,6 +22,6 @@ const buildCssModules = (paths) => {
 };
 
 execSync('rimraf lib');
-execSync('babel src --out-dir lib --copy-files');
+execSync('babel src --out-dir lib --copy-files --ignore "src/**/__tests__"');
 buildCssModules(path.resolve('./lib/components'));
 execSync('sass lib/components --no-source-map');
