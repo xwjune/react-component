@@ -1,5 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {
+  shallow,
+  mount,
+} from 'enzyme';
 import sinon from 'sinon';
 import Countdown from '../index';
 
@@ -8,9 +11,10 @@ describe('Countdown', () => {
     jest.useFakeTimers();
   });
 
-  test('renders correctly', () => {
+  test('render correctly', () => {
     const wrapper = shallow(<Countdown />);
     expect(wrapper.render()).toMatchSnapshot();
+
     const wrapper1 = shallow(
       <Countdown
         count={60}
@@ -24,45 +28,7 @@ describe('Countdown', () => {
     const wrapper = shallow(<Countdown />);
     expect(wrapper.find('span').exists()).toBeFalsy();
     expect(wrapper.isEmptyRender()).toBeTruthy();
-  });
-
-  test('普通倒计时', () => {
-    const wrapper = shallow(
-      <Countdown
-        count={10}
-        prefix="剩余"
-        suffix="天"
-      />
-    );
-    expect(wrapper.find('span').text()).toBe('剩余10天');
-    jest.runTimersToTime(1000);
-    expect(wrapper.find('span').text()).toBe('剩余9天');
-  });
-
-  test('小时倒计时', () => {
-    const wrapper = shallow(
-      <Countdown
-        count={60 * 60}
-        type="hour"
-      />
-    );
-    expect(wrapper.find('span').text()).toBe('60:00');
-    jest.runTimersToTime(1000);
-    expect(wrapper.find('span').text()).toBe('59:59');
-  });
-
-  test('1秒钟后回调onComplete', () => {
-    const onComplete = jest.fn();
-    const wrapper = shallow(
-      <Countdown
-        count={1}
-        onComplete={onComplete}
-      />
-    );
-    expect(onComplete).not.toHaveBeenCalled();
-    jest.runTimersToTime(1000);
-    expect(onComplete).toHaveBeenCalled();
-    expect(wrapper.isEmptyRender()).toBeTruthy();
+    wrapper.unmount();
   });
 
   test('错误type', () => {
@@ -75,15 +41,49 @@ describe('Countdown', () => {
     expect(wrapper.find('span').text()).toBe('10');
   });
 
-  // todo
-  test('componentWillUnmount', () => {
-    const spy = sinon.spy();
-    spy(Countdown.prototype, 'componentWillUnmount');
-    shallow(
-      <Countdown count={1} />
+  test('倒计时', () => {
+    const wrapper = shallow(
+      <Countdown
+        count={10}
+        prefix="剩余"
+        suffix="天"
+      />
     );
-    // jest.runTimersToTime(1000);
-    // console.log(spy.callCount);
-    expect(spy.calledOnce).toBeTruthy();
+    const wrapper1 = shallow(
+      <Countdown
+        count={60 * 60}
+        type="hour"
+      />
+    );
+    expect(wrapper.find('span').text()).toBe('剩余10天');
+    expect(wrapper1.find('span').text()).toBe('60:00');
+    jest.runTimersToTime(1000);
+    expect(wrapper.find('span').text()).toBe('剩余9天');
+    expect(wrapper1.find('span').text()).toBe('59:59');
+  });
+
+  test('1秒钟后回调onComplete', () => {
+    const onComplete = jest.fn();
+    const wrapper = shallow(
+      <Countdown
+        count={1}
+        onComplete={onComplete}
+      />
+    );
+    shallow(<Countdown count={1} />); // 未传入onComplete测试
+    expect(wrapper.find('span').text()).toBe('1');
+    expect(onComplete).not.toHaveBeenCalled();
+    jest.runTimersToTime(1000);
+    expect(wrapper.find('span').exists()).toBeFalsy();
+    expect(wrapper.isEmptyRender()).toBeTruthy();
+    expect(onComplete).toHaveBeenCalled();
+  });
+
+  test('componentWillUnmount', () => {
+    sinon.spy(Countdown.prototype, 'componentWillUnmount');
+    const wrapper = mount(<Countdown count={10} />);
+    expect(Countdown.prototype.componentWillUnmount.calledOnce).toBeFalsy();
+    wrapper.unmount();
+    expect(Countdown.prototype.componentWillUnmount.calledOnce).toBeTruthy();
   });
 });

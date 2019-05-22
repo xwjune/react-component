@@ -1,10 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImgCatch renders correctly 1`] = `
+exports[`ImgCatch render correctly 1`] = `
 <img
   alt="图片"
   height="100"
   src="pic.png"
+  width="100"
+/>
+`;
+
+exports[`ImgCatch 图片资源加载异常 1`] = `
+<img
+  alt="图片"
+  height="100"
+  src="blanksrc.png"
   width="100"
 />
 `;

@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination renders: 一页 1`] = `
+<ul
+  class="jun-pagination"
+  unselectable="unselectable"
+>
+  <li
+    class="page"
+  >
+    页码: 1
+  </li>
+  <li
+    class="prev disabled"
+  >
+    上一页
+  </li>
+  <li
+    class="next disabled"
+  >
+    下一页
+  </li>
+</ul>
+`;
+
+exports[`Pagination renders: 有下一页 1`] = `
+<ul
+  class="jun-pagination"
+  unselectable="unselectable"
+>
+  <li
+    class="page"
+  >
+    页码: 1
+  </li>
+  <li
+    class="prev disabled"
+  >
+    上一页
+  </li>
+  <li
+    class="next"
+  >
+    下一页
+  </li>
+</ul>
+`;
+
+exports[`Pagination renders: 页码更改，快速跳转 1`] = `
+<ul
+  class="jun-pagination"
+  unselectable="unselectable"
+>
+  <li
+    class="options"
+  >
+    <div
+      class="jumper"
+    >
+      跳至
+      <input
+        type="text"
+        value=""
+      />
+      页
+    </div>
+    <div
+      class="pageSize"
+    >
+      <select>
+        <option
+          selected=""
+          value="10"
+        >
+          10条/页
+        </option>
+        <option
+          value="20"
+        >
+          20条/页
+        </option>
+        <option
+          value="30"
+        >
+          30条/页
+        </option>
+        <option
+          value="40"
+        >
+          40条/页
+        </option>
+      </select>
+    </div>
+  </li>
+  <li
+    class="page"
+  >
+    页码: 1
+  </li>
+  <li
+    class="prev disabled"
+  >
+    上一页
+  </li>
+  <li
+    class="next"
+  >
+    下一页
+  </li>
+</ul>
+`;

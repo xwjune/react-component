@@ -56,7 +56,8 @@ $pagination-prefix-cls: '#{$cls-prefix}-pagination';
     user-select: none;
     cursor: pointer;
   }
-  .pages,
+  .page,
+  .pageSize,
   .jumper {
     display: inline-block;
   }

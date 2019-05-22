@@ -49,7 +49,7 @@ export default class ImgView extends React.PureComponent {
       document.body.appendChild(this.view);
       let style = document.body.getAttribute('style');
       if (style) {
-        style += `${/;$/.test(style.trimEnd()) ? '' : ';'} overflow: hidden;`;
+        style += `${/;$/.test(style.trim()) ? '' : ';'} overflow: hidden;`;
       } else {
         style = 'overflow: hidden;';
       }

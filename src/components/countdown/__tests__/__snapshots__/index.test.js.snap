@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Countdown renders correctly 1`] = `null`;
+exports[`Countdown render correctly 1`] = `null`;
 
-exports[`Countdown renders correctly 2`] = `
+exports[`Countdown render correctly 2`] = `
 <span>
   60s
 </span>
