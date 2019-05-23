@@ -63,7 +63,7 @@ export default class ImgView extends React.PureComponent {
     style = style.replace(/\s?overflow: hidden;/, '');
     document.body.setAttribute('style', style);
     document.body.removeChild(this.view);
-    this.view = null;
+    delete this.view;
   };
 
   render() {

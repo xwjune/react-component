@@ -11,7 +11,7 @@ describe('ImgView', () => {
     document.body.removeAttribute('style');
   });
 
-  test('render correctly', () => {
+  test('renders correctly', () => {
     const wrapper = shallow(
       <ImgView
         src="pic.png"
@@ -28,6 +28,7 @@ describe('ImgView', () => {
     );
     // 点击放大
     wrapper.find('img').simulate('click');
+    expect(wrapper.instance().view).not.toBeUndefined();
     expect(document.body.getAttribute('style')).toBe('overflow: hidden;');
     expect(document.body.querySelectorAll('.jun-img-view')).toHaveLength(1);
 
@@ -37,6 +38,7 @@ describe('ImgView', () => {
 
     // 点击还原
     document.body.querySelector('.jun-img-view').click();
+    expect(wrapper.instance().view).toBeUndefined();
     expect(document.body.getAttribute('style')).toBe('');
     expect(document.body.querySelectorAll('.jun-img-view')).toHaveLength(0);
   });
@@ -58,9 +60,10 @@ describe('ImgView', () => {
   });
 
   test('图片异常点击不放大', () => {
-    const wrapper = mount(<ImgView src="pic.png" />);
+    const wrapper = shallow(<ImgView src="pic.png" />);
     wrapper.find('img').simulate('error');
     wrapper.find('img').simulate('click');
+    expect(wrapper.instance().view).toBeUndefined();
     expect(document.body.querySelectorAll('.jun-img-view')).toHaveLength(0);
   });
 

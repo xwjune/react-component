@@ -44,7 +44,10 @@ export default class Pagination extends React.PureComponent {
   };
 
   componentDidMount() {
-    const { pageSize, pageSizeOptions } = this.props;
+    const {
+      pageSize,
+      pageSizeOptions,
+    } = this.props;
     if (typeof pageSize !== 'undefined') {
       const set = new Set([...pageSizeOptions, `${pageSize}`]);
       this.setState({
@@ -60,7 +63,10 @@ export default class Pagination extends React.PureComponent {
       const { onChange } = this.props;
       const { jumpPage } = this.state;
       const pageSize = typeof this.props.pageSize !== 'undefined' ? this.props.pageSize : this.state.pageSize;
-      this.setState({ jumpPage: '' });
+
+      this.setState({
+        jumpPage: '',
+      });
       if (/^\d+$/.test(jumpPage) && Number(jumpPage) > 0) {
         // 页码校验
         const page = Number(jumpPage);
@@ -99,14 +105,19 @@ export default class Pagination extends React.PureComponent {
   };
 
   onPageChange(type) {
-    const { current, dataSize, onChange } = this.props;
+    const {
+      current,
+      dataSize,
+      onChange,
+    } = this.props;
     const pageSize = typeof this.props.pageSize !== 'undefined' ? this.props.pageSize : this.state.pageSize;
     let page = typeof current !== 'undefined' ? current : this.state.current;
 
     if (type === 'prev') {
       // 前一页
       if (page === 1) {
-        return; // 第一页
+        // 第一页
+        return;
       }
       if (page > 1) {
         page -= 1;
@@ -121,7 +132,9 @@ export default class Pagination extends React.PureComponent {
     }
 
     if (typeof current === 'undefined') {
-      this.setState({ current: page });
+      this.setState({
+        current: page,
+      });
     }
     if (onChange) {
       onChange(page, pageSize);

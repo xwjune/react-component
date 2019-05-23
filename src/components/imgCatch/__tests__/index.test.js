@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import ImgCatch from '../index';
 
 describe('ImgCatch', () => {
-  test('render correctly', () => {
+  test('renders correctly', () => {
     const wrapper = shallow(
       <ImgCatch
         width="100"
@@ -28,6 +28,7 @@ describe('ImgCatch', () => {
     );
     expect(onError).not.toHaveBeenCalled();
     wrapper.find('img').simulate('error');
+    expect(wrapper.state('imgErr')).toBeTruthy();
     expect(wrapper.render()).toMatchSnapshot();
     expect(onError).toHaveBeenCalled();
     expect(wrapper.prop('src')).toBe('blanksrc.png');

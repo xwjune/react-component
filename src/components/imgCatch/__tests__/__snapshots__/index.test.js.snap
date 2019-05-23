@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImgCatch render correctly 1`] = `
+exports[`ImgCatch renders correctly 1`] = `
 <img
   alt="图片"
   height="100"

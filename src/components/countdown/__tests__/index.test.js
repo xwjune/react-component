@@ -11,7 +11,7 @@ describe('Countdown', () => {
     jest.useFakeTimers();
   });
 
-  test('render correctly', () => {
+  test('renders correctly', () => {
     const wrapper = shallow(<Countdown />);
     expect(wrapper.render()).toMatchSnapshot();
 

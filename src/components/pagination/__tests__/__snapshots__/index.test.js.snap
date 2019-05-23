@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Pagination renders: 一页 1`] = `
+exports[`Pagination renders: disable next 1`] = `
 <ul
   class="jun-pagination"
   unselectable="unselectable"
@@ -8,10 +8,10 @@ exports[`Pagination renders: 一页 1`] = `
   <li
     class="page"
   >
-    页码: 1
+    页码: 2
   </li>
   <li
-    class="prev disabled"
+    class="prev"
   >
     上一页
   </li>
@@ -23,7 +23,7 @@ exports[`Pagination renders: 一页 1`] = `
 </ul>
 `;
 
-exports[`Pagination renders: 有下一页 1`] = `
+exports[`Pagination renders: disable prev 1`] = `
 <ul
   class="jun-pagination"
   unselectable="unselectable"
@@ -46,7 +46,30 @@ exports[`Pagination renders: 有下一页 1`] = `
 </ul>
 `;
 
-exports[`Pagination renders: 页码更改，快速跳转 1`] = `
+exports[`Pagination renders: disable prev and next 1`] = `
+<ul
+  class="jun-pagination"
+  unselectable="unselectable"
+>
+  <li
+    class="page"
+  >
+    页码: 1
+  </li>
+  <li
+    class="prev disabled"
+  >
+    上一页
+  </li>
+  <li
+    class="next disabled"
+  >
+    下一页
+  </li>
+</ul>
+`;
+
+exports[`Pagination renders: showQuickJumper, showSizeChanger 1`] = `
 <ul
   class="jun-pagination"
   unselectable="unselectable"
