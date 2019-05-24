@@ -6,17 +6,19 @@ exports[`Pagination renders: disable next 1`] = `
   unselectable="unselectable"
 >
   <li
-    class="page"
+    class="jun-pagination-page"
   >
     页码: 2
   </li>
   <li
-    class="prev"
+    aria-disabled="false"
+    class="jun-pagination-prev"
   >
     上一页
   </li>
   <li
-    class="next disabled"
+    aria-disabled="true"
+    class="jun-pagination-disabled jun-pagination-next"
   >
     下一页
   </li>
@@ -29,17 +31,19 @@ exports[`Pagination renders: disable prev 1`] = `
   unselectable="unselectable"
 >
   <li
-    class="page"
+    class="jun-pagination-page"
   >
     页码: 1
   </li>
   <li
-    class="prev disabled"
+    aria-disabled="true"
+    class="jun-pagination-disabled jun-pagination-prev"
   >
     上一页
   </li>
   <li
-    class="next"
+    aria-disabled="false"
+    class="jun-pagination-next"
   >
     下一页
   </li>
@@ -52,17 +56,44 @@ exports[`Pagination renders: disable prev and next 1`] = `
   unselectable="unselectable"
 >
   <li
-    class="page"
+    class="jun-pagination-page"
   >
     页码: 1
   </li>
   <li
-    class="prev disabled"
+    aria-disabled="true"
+    class="jun-pagination-disabled jun-pagination-prev"
   >
     上一页
   </li>
   <li
-    class="next disabled"
+    aria-disabled="true"
+    class="jun-pagination-disabled jun-pagination-next"
+  >
+    下一页
+  </li>
+</ul>
+`;
+
+exports[`Pagination renders: error page 1`] = `
+<ul
+  class="jun-pagination"
+  unselectable="unselectable"
+>
+  <li
+    class="jun-pagination-page"
+  >
+    页码: -1
+  </li>
+  <li
+    aria-disabled="true"
+    class="jun-pagination-disabled jun-pagination-prev"
+  >
+    上一页
+  </li>
+  <li
+    aria-disabled="false"
+    class="jun-pagination-next"
   >
     下一页
   </li>
@@ -75,60 +106,58 @@ exports[`Pagination renders: showQuickJumper, showSizeChanger 1`] = `
   unselectable="unselectable"
 >
   <li
-    class="options"
+    class="jun-pagination-options"
   >
-    <div
-      class="jumper"
-    >
-      跳至
-      <input
-        type="text"
-        value=""
-      />
-      页
-    </div>
-    <div
-      class="pageSize"
-    >
-      <select>
-        <option
-          selected=""
-          value="10"
-        >
-          10条/页
-        </option>
-        <option
-          value="20"
-        >
-          20条/页
-        </option>
-        <option
-          value="30"
-        >
-          30条/页
-        </option>
-        <option
-          value="40"
-        >
-          40条/页
-        </option>
-      </select>
-    </div>
+    <select>
+      <option
+        selected=""
+        value="10"
+      >
+        10条/页
+      </option>
+      <option
+        value="20"
+      >
+        20条/页
+      </option>
+      <option
+        value="30"
+      >
+        30条/页
+      </option>
+      <option
+        value="40"
+      >
+        40条/页
+      </option>
+    </select>
   </li>
   <li
-    class="page"
+    class="jun-pagination-page"
   >
     页码: 1
   </li>
   <li
-    class="prev disabled"
+    aria-disabled="true"
+    class="jun-pagination-disabled jun-pagination-prev"
   >
     上一页
   </li>
   <li
-    class="next"
+    aria-disabled="false"
+    class="jun-pagination-next"
   >
     下一页
+  </li>
+  <li
+    class="jun-pagination-jumper"
+  >
+    跳至
+    <input
+      type="text"
+      value=""
+    />
+    页
   </li>
 </ul>
 `;

@@ -14,10 +14,9 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import cs from 'classnames';
 import getPrefixCls from '../../utils/getPrefixCls';
 
-const PAGE_SIZE = 10;
+const prefixCls = getPrefixCls('pagination');
 
 export default class Pagination extends React.PureComponent {
   static propTypes = {
@@ -36,65 +35,36 @@ export default class Pagination extends React.PureComponent {
     pageSizeOptions: ['10', '20', '30', '40'], // 默认指定每页可以显示条数
   };
 
-  state = {
-    pageSizeOptions: this.props.pageSizeOptions, // 每页可以显示条数
-    pageSize: PAGE_SIZE, // 每页条数
-    current: 1, // 当前页数
-    jumpPage: '', // 跳转至指定某页
-  };
+  static getDerivedStateFromProps(props, state) {
+    const newState = {};
 
-  componentDidMount() {
-    const {
-      pageSize,
-      pageSizeOptions,
-    } = this.props;
-    if (typeof pageSize !== 'undefined') {
-      const set = new Set([...pageSizeOptions, `${pageSize}`]);
-      this.setState({
-        pageSizeOptions: Array.from(set).sort((a, b) => a - b),
-      });
+    if ('current' in props && props.current !== state.current) {
+      newState.current = props.current;
     }
+    if ('pageSize' in props && props.pageSize !== state.pageSize) {
+      newState.pageSize = props.pageSize;
+    }
+
+    return newState;
   }
 
+  state = {
+    pageSize: this.props.pageSize || 10, // 每页条数
+    current: this.props.current || 1, // 当前页数
+    jumpPage: '', // 跳转页
+  };
+
   // 跳转至某页
-  onJumper = (e) => {
+  handleJump = (e) => {
     if (e.keyCode === 13) {
       // Enter键
-      const { onChange } = this.props;
-      const { jumpPage } = this.state;
-      const pageSize = typeof this.props.pageSize !== 'undefined' ? this.props.pageSize : this.state.pageSize;
-
       this.setState({
         jumpPage: '',
       });
+      const { jumpPage } = this.state;
       if (/^\d+$/.test(jumpPage) && Number(jumpPage) > 0) {
-        // 页码校验
-        const page = Number(jumpPage);
-        if (typeof this.props.current === 'undefined') {
-          this.setState({
-            current: page,
-          });
-        }
-        if (onChange) {
-          onChange(page, pageSize);
-        }
+        this.handleChange(Number(jumpPage));
       }
-    }
-  };
-
-  onPageSizeChange = (e) => {
-    const { onChange } = this.props;
-    const pageSize = Number(e.target.value);
-    const current = 1;
-
-    if (typeof this.props.pageSize === 'undefined') {
-      this.setState({ pageSize });
-    }
-    if (typeof this.props.current === 'undefined') {
-      this.setState({ current });
-    }
-    if (onChange) {
-      onChange(current, pageSize);
     }
   };
 
@@ -104,111 +74,124 @@ export default class Pagination extends React.PureComponent {
     });
   };
 
-  onPageChange(type) {
-    const {
-      current,
-      dataSize,
-      onChange,
-    } = this.props;
-    const pageSize = typeof this.props.pageSize !== 'undefined' ? this.props.pageSize : this.state.pageSize;
-    let page = typeof current !== 'undefined' ? current : this.state.current;
+  onPageSizeChange = (e) => {
+    const pageSize = Number(e.target.value);
+    const current = 1;
 
-    if (type === 'prev') {
-      // 前一页
-      if (page === 1) {
-        // 第一页
-        return;
-      }
-      if (page > 1) {
-        page -= 1;
-      }
-    } else {
-      // 后一页
-      if (dataSize < pageSize) {
-        // 最后一页
-        return;
-      }
-      page += 1;
+    if (!('pageSize' in this.props)) {
+      this.setState({ pageSize });
     }
+    if (!('current' in this.props)) {
+      this.setState({ current });
+    }
+    if (this.props.onChange !== undefined) {
+      this.props.onChange(current, pageSize);
+    }
+  };
 
-    if (typeof current === 'undefined') {
+  handleChange = (page) => {
+    if (!('current' in this.props)) {
       this.setState({
         current: page,
       });
     }
-    if (onChange) {
-      onChange(page, pageSize);
+    if (this.props.onChange !== undefined) {
+      this.props.onChange(page, this.state.pageSize);
     }
-  }
+  };
+
+  // 上一页跳转
+  prev = () => {
+    if (this.hasPrev()) {
+      this.handleChange(this.state.current - 1);
+    }
+  };
+
+  // 下一页跳转
+  next = () => {
+    if (this.hasNext()) {
+      this.handleChange(this.state.current + 1);
+    }
+  };
+
+  hasPrev = () => {
+    return this.state.current > 1;
+  };
+
+  hasNext = () => {
+    return this.props.dataSize === this.state.pageSize;
+  };
 
   render() {
     const {
-      dataSize,
-      current,
+      pageSizeOptions,
       showQuickJumper,
       showSizeChanger,
     } = this.props;
-    const { pageSizeOptions } = this.state;
-    const pageSize = typeof this.props.pageSize !== 'undefined' ? this.props.pageSize : this.state.pageSize;
-    const page = typeof current !== 'undefined' ? current : this.state.current;
-    const isFirst = page === 1; // 是否第一页
-    const isLast = dataSize < pageSize; // 是否最后一页
+    const {
+      current,
+      pageSize,
+    } = this.state;
+    const prevDisabled = !this.hasPrev(); // 上一页禁用
+    const nextDisabled = !this.hasNext(); // 下一页禁用
 
     return (
       <ul
-        className={getPrefixCls('pagination')}
+        className={prefixCls}
         unselectable="unselectable"
       >
-        {(showQuickJumper || showSizeChanger) && (
-          <li className="options">
-            {showQuickJumper && (
-              <div className="jumper">
-                跳至
-                <input
-                  type="text"
-                  value={this.state.jumpPage}
-                  onChange={this.onJumperChange}
-                  onKeyDown={this.onJumper}
-                />
-                页
-              </div>
-            )}
-            {showSizeChanger && (
-              <div className="pageSize">
-                <select
-                  value={pageSize}
-                  onChange={this.onPageSizeChange}
-                >
-                  {
-                    pageSizeOptions.map((el) => (
-                      <option value={el} key={el}>
-                        {el}
-                        条/页
-                      </option>
-                    ))
-                  }
-                </select>
-              </div>
-            )}
-          </li>
-        )}
-        <li className="page">
+        {
+          showSizeChanger && (
+            <li className={`${prefixCls}-options`}>
+              <select
+                value={pageSize}
+                onChange={this.onPageSizeChange}
+              >
+                {
+                  pageSizeOptions.map((el) => (
+                    <option value={el} key={el}>
+                      {el}
+                      条/页
+                    </option>
+                  ))
+                }
+              </select>
+            </li>
+          )
+        }
+        <li className={`${prefixCls}-page`}>
           页码:
           {' '}
-          {page}
+          {current}
         </li>
         <li
-          className={cs('prev', isFirst ? 'disabled' : '')}
-          onClick={() => this.onPageChange('prev')}
+          className={`${prevDisabled ? `${prefixCls}-disabled ` : ''}${prefixCls}-prev`}
+          onClick={this.prev}
+          aria-disabled={prevDisabled}
         >
           上一页
         </li>
         <li
-          className={cs('next', isLast ? 'disabled' : '')}
-          onClick={() => this.onPageChange('next')}
+          className={`${nextDisabled ? `${prefixCls}-disabled ` : ''}${prefixCls}-next`}
+          onClick={this.next}
+          aria-disabled={nextDisabled}
         >
           下一页
         </li>
+        {
+          showQuickJumper && (
+            <li className={`${prefixCls}-jumper`}>
+              跳至
+              <input
+                type="text"
+                value={this.state.jumpPage}
+                onChange={this.onJumperChange}
+                onKeyDown={this.handleJump}
+              />
+              页
+            </li>
+          )
+        }
       </ul>
     );
   }

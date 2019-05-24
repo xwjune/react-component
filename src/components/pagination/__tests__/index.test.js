@@ -1,8 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Pagination from '../index';
+import getPrefixCls from '../../../utils/getPrefixCls';
 
-const PAGE_SIZE = 10;
+const getCls = cls => getPrefixCls(`pagination-${cls}`);
+const queryCls = cls => `.${getCls(cls)}`;
 
 describe('Pagination', () => {
   test('renders: disable prev', () => {
@@ -35,6 +37,19 @@ describe('Pagination', () => {
     expect(wrapper.render()).toMatchSnapshot();
   });
 
+  test('renders: error page', () => {
+    const wrapper = shallow(
+      <Pagination
+        dataSize={10}
+        current={-1}
+      />
+    );
+    expect(wrapper.render()).toMatchSnapshot();
+    expect(wrapper.find(queryCls('prev')).hasClass(getCls('disabled'))).toBeTruthy();
+    wrapper.find(queryCls('prev')).simulate('click');
+    expect(wrapper.state('current')).toBe(-1);
+  });
+
   test('renders: showQuickJumper, showSizeChanger', () => {
     const wrapper = shallow(
       <Pagination
@@ -51,8 +66,8 @@ describe('Pagination', () => {
     let wrapper = null;
     const total = 19;
     const onChange = (pageNum, pageSize) => {
-      const left = total - (pageNum - 1) * PAGE_SIZE;
-      const dataSize = left > PAGE_SIZE ? PAGE_SIZE : left;
+      const left = total - (pageNum - 1) * 10;
+      const dataSize = left > 10 ? 10 : left;
       wrapper.setProps({
         dataSize,
         pageSize,
@@ -63,29 +78,30 @@ describe('Pagination', () => {
       <Pagination
         dataSize={10}
         current={1}
+        pageSize={10}
         onChange={onChange}
         showQuickJumper
         showSizeChanger
       />
     );
-    expect(wrapper.find('.page').text()).toBe('页码: 1');
+    expect(wrapper.find(queryCls('page')).text()).toBe('页码: 1');
     // 第一页点击上一页-禁止点击
-    wrapper.find('.prev').simulate('click');
-    expect(wrapper.prop('current')).toBe(1);
+    wrapper.find(queryCls('prev')).simulate('click');
+    expect(wrapper.state('current')).toBe(1);
 
     // 下一页点击
-    wrapper.find('.next').simulate('click');
-    expect(wrapper.prop('current')).toBe(2);
-    expect(wrapper.find('.next').hasClass('disabled')).toBeTruthy();
+    wrapper.find(queryCls('next')).simulate('click');
+    expect(wrapper.state('current')).toBe(2);
+    expect(wrapper.find(queryCls('next')).hasClass(getCls('disabled'))).toBeTruthy();
 
     // 最后一页点击下一页-禁止点击
-    wrapper.find('.next').simulate('click');
-    expect(wrapper.prop('current')).toBe(2);
+    wrapper.find(queryCls('next')).simulate('click');
+    expect(wrapper.state('current')).toBe(2);
 
     // 上一页点击
-    wrapper.find('.prev').simulate('click');
-    expect(wrapper.prop('current')).toBe(1);
-    expect(wrapper.find('.prev').hasClass('disabled')).toBeTruthy();
+    wrapper.find(queryCls('prev')).simulate('click');
+    expect(wrapper.state('current')).toBe(1);
+    expect(wrapper.find(queryCls('prev')).hasClass(getCls('disabled'))).toBeTruthy();
 
     // 跳转至某页
     wrapper.find('input').simulate('change', {
@@ -97,7 +113,7 @@ describe('Pagination', () => {
       key: 'Enter',
       keyCode: 13,
     });
-    expect(wrapper.prop('current')).toBe(2);
+    expect(wrapper.state('current')).toBe(2);
 
     // 更改每页条数
     wrapper.find('select').simulate('change', {
@@ -105,27 +121,27 @@ describe('Pagination', () => {
         value: 20,
       },
     });
-    expect(wrapper.prop('pageSize')).toBe(20);
+    expect(wrapper.state('pageSize')).toBe(20);
   });
 
-  test('current、pageSize内部维护', () => {
+  test('props without current、pageSize', () => {
     const wrapper = shallow(
       <Pagination dataSize={10} />
     );
     expect(wrapper.state('current')).toBe(1);
 
     // 下一页点击
-    wrapper.find('.next').simulate('click');
+    wrapper.find(queryCls('next')).simulate('click');
     expect(wrapper.state('current')).toBe(2);
 
     // 上一页点击
-    wrapper.find('.prev').simulate('click');
+    wrapper.find(queryCls('prev')).simulate('click');
     expect(wrapper.state('current')).toBe(1);
-    expect(wrapper.find('.prev').hasClass('disabled')).toBeTruthy();
+    expect(wrapper.find(queryCls('prev')).hasClass(getCls('disabled'))).toBeTruthy();
   });
 
-  test('跳转至某页', () => {
-    const wrapper = shallow(
+  test('jump to a page', () => {
+    const wrapper = mount(
       <Pagination
         dataSize={10}
         showQuickJumper
@@ -163,23 +179,25 @@ describe('Pagination', () => {
     expect(wrapper.state('current')).toBe(2);
   });
 
-  test('更改每页条数', () => {
+  test('change pageSize', () => {
     const wrapper = shallow(
       <Pagination
         dataSize={10}
         showSizeChanger
       />
     );
+    expect(wrapper.find(queryCls('next')).hasClass(getCls('disabled'))).toBeFalsy();
     wrapper.find('select').simulate('change', {
       target: {
         value: 20,
       },
     });
     expect(wrapper.state('pageSize')).toBe(20);
+    expect(wrapper.find(queryCls('next')).hasClass(getCls('disabled'))).toBeTruthy();
   });
 
-  test('设置pageSizeOptions', () => {
-    const wrapper = shallow(
+  test('set pageSizeOptions', () => {
+    const wrapper = mount(
       <Pagination
         dataSize={10}
         pageSize={8}
@@ -187,6 +205,6 @@ describe('Pagination', () => {
         showSizeChanger
       />
     );
-    expect(wrapper.state('pageSizeOptions')).toEqual(['8', '10', '20']);
+    expect(wrapper.find('select').text()).toBe('10条/页20条/页');
   });
 });

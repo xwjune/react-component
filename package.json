@@ -1,6 +1,6 @@
 {
   "name": "jun-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "components of React",
   "main": "index.js",
   "scripts": {
@@ -48,10 +48,9 @@
   },
   "engines": {
     "node": ">=8.0.0",
-    "react": ">=16.0.0"
+    "react": ">=16.3.0"
   },
   "dependencies": {
-    "classnames": "^2.2.6",
     "prop-types": "^15.6.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"

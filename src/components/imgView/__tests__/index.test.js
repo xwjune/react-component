@@ -5,6 +5,9 @@ import {
 } from 'enzyme';
 import sinon from 'sinon';
 import ImgView from '../index';
+import getPrefixCls from '../../../utils/getPrefixCls';
+
+const cls = `.${getPrefixCls('img-view')}`;
 
 describe('ImgView', () => {
   beforeAll(() => {
@@ -30,17 +33,17 @@ describe('ImgView', () => {
     wrapper.find('img').simulate('click');
     expect(wrapper.instance().view).not.toBeUndefined();
     expect(document.body.getAttribute('style')).toBe('overflow: hidden;');
-    expect(document.body.querySelectorAll('.jun-img-view')).toHaveLength(1);
+    expect(document.body.querySelectorAll(cls)).toHaveLength(1);
 
     // 全屏快照
     expect(wrapper.instance().view).toMatchSnapshot();
     expect(document.body).toMatchSnapshot();
 
     // 点击还原
-    document.body.querySelector('.jun-img-view').click();
+    document.body.querySelector(cls).click();
     expect(wrapper.instance().view).toBeUndefined();
     expect(document.body.getAttribute('style')).toBe('');
-    expect(document.body.querySelectorAll('.jun-img-view')).toHaveLength(0);
+    expect(document.body.querySelectorAll(cls)).toHaveLength(0);
   });
 
   test('body样式', () => {
@@ -64,7 +67,7 @@ describe('ImgView', () => {
     wrapper.find('img').simulate('error');
     wrapper.find('img').simulate('click');
     expect(wrapper.instance().view).toBeUndefined();
-    expect(document.body.querySelectorAll('.jun-img-view')).toHaveLength(0);
+    expect(document.body.querySelectorAll(cls)).toHaveLength(0);
   });
 
   test('componentWillUnmount', () => {
@@ -74,6 +77,6 @@ describe('ImgView', () => {
     expect(ImgView.prototype.componentWillUnmount.calledOnce).toBeFalsy();
     wrapper.unmount();
     expect(ImgView.prototype.componentWillUnmount.calledOnce).toBeTruthy();
-    expect(document.body.querySelectorAll('.jun-img-view')).toHaveLength(0);
+    expect(document.body.querySelectorAll(cls)).toHaveLength(0);
   });
 });

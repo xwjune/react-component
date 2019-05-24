@@ -39,32 +39,25 @@ $pagination-prefix-cls: '#{$cls-prefix}-pagination';
     select {
       width: auto;
     }
-    input:hover,
-    input:focus {
-      border-color: #409aff;
-    }
-    div + div {
-      margin-left: 8px;
+    input {
+      &:hover,
+      &:focus {
+        border-color: #409aff;
+      }
     }
   }
-  .options {
-    margin-right: 16px;
-  }
-  .prev,
-  .next {
+  &-prev,
+  &-next {
     color: rgba(0, 0, 0, .65);
     user-select: none;
     cursor: pointer;
   }
-  .page,
-  .pageSize,
-  .jumper {
-    display: inline-block;
-  }
-  .disabled,
-  .disabled:hover,
-  .disabled:focus {
-    cursor: not-allowed;
-    color: rgba(0, 0, 0, 0.25) !important;
+  &-disabled {
+    &,
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+      color: rgba(0, 0, 0, 0.25) !important;
+    }
   }
 }
