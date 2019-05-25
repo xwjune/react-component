@@ -52,6 +52,10 @@ $pagination-prefix-cls: '#{$cls-prefix}-pagination';
     user-select: none;
     cursor: pointer;
   }
+  &-next + &-options,
+  &-next + &-jumper {
+    margin-left: 18px;
+  }
   &-disabled {
     &,
     &:hover,

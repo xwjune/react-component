@@ -140,25 +140,6 @@ export default class Pagination extends React.PureComponent {
         className={prefixCls}
         unselectable="unselectable"
       >
-        {
-          showSizeChanger && (
-            <li className={`${prefixCls}-options`}>
-              <select
-                value={pageSize}
-                onChange={this.onPageSizeChange}
-              >
-                {
-                  pageSizeOptions.map((el) => (
-                    <option value={el} key={el}>
-                      {el}
-                      条/页
-                    </option>
-                  ))
-                }
-              </select>
-            </li>
-          )
-        }
         <li className={`${prefixCls}-page`}>
           页码:
           {' '}
@@ -178,6 +159,25 @@ export default class Pagination extends React.PureComponent {
         >
           下一页
         </li>
+        {
+          showSizeChanger && (
+            <li className={`${prefixCls}-options`}>
+              <select
+                value={pageSize}
+                onChange={this.onPageSizeChange}
+              >
+                {
+                  pageSizeOptions.map((el) => (
+                    <option value={el} key={el}>
+                      {el}
+                      条/页
+                    </option>
+                  ))
+                }
+              </select>
+            </li>
+          )
+        }
         {
           showQuickJumper && (
             <li className={`${prefixCls}-jumper`}>

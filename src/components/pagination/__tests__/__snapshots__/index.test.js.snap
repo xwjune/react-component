@@ -106,6 +106,23 @@ exports[`Pagination renders: showQuickJumper, showSizeChanger 1`] = `
   unselectable="unselectable"
 >
   <li
+    class="jun-pagination-page"
+  >
+    页码: 1
+  </li>
+  <li
+    aria-disabled="true"
+    class="jun-pagination-disabled jun-pagination-prev"
+  >
+    上一页
+  </li>
+  <li
+    aria-disabled="false"
+    class="jun-pagination-next"
+  >
+    下一页
+  </li>
+  <li
     class="jun-pagination-options"
   >
     <select>
@@ -131,23 +148,6 @@ exports[`Pagination renders: showQuickJumper, showSizeChanger 1`] = `
         40条/页
       </option>
     </select>
-  </li>
-  <li
-    class="jun-pagination-page"
-  >
-    页码: 1
-  </li>
-  <li
-    aria-disabled="true"
-    class="jun-pagination-disabled jun-pagination-prev"
-  >
-    上一页
-  </li>
-  <li
-    aria-disabled="false"
-    class="jun-pagination-next"
-  >
-    下一页
   </li>
   <li
     class="jun-pagination-jumper"
