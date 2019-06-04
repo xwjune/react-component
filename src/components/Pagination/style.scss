@@ -54,7 +54,7 @@ $pagination-prefix-cls: '#{$cls-prefix}-pagination';
   }
   &-next + &-options,
   &-next + &-jumper {
-    margin-left: 18px;
+    margin-left: 16px;
   }
   &-disabled {
     &,

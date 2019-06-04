@@ -10,10 +10,6 @@ import getPrefixCls from '../../../utils/getPrefixCls';
 const cls = `.${getPrefixCls('img-view')}`;
 
 describe('ImgView', () => {
-  beforeAll(() => {
-    document.body.removeAttribute('style');
-  });
-
   test('renders correctly', () => {
     const wrapper = shallow(
       <ImgView
@@ -26,47 +22,42 @@ describe('ImgView', () => {
   });
 
   test('全屏预览', () => {
-    const wrapper = shallow(
-      <ImgView src="pic.png" />
-    );
+    const wrapper = mount(<ImgView src="pic.png" />);
+    expect(wrapper.state('visible')).toBeFalsy();
+
     // 点击放大
     wrapper.find('img').simulate('click');
-    expect(wrapper.instance().view).not.toBeUndefined();
-    expect(document.body.getAttribute('style')).toBe('overflow: hidden;');
+    expect(wrapper.instance().container).not.toBeUndefined();
+    expect(wrapper.state('visible')).toBeTruthy();
+    expect(document.body.getAttribute('style')).toMatch(/overflow: hidden/);
     expect(document.body.querySelectorAll(cls)).toHaveLength(1);
 
     // 全屏快照
-    expect(wrapper.instance().view).toMatchSnapshot();
+    expect(wrapper.instance().container).toMatchSnapshot();
     expect(document.body).toMatchSnapshot();
 
     // 点击还原
     document.body.querySelector(cls).click();
-    expect(wrapper.instance().view).toBeUndefined();
-    expect(document.body.getAttribute('style')).toBe('');
+    expect(document.body.getAttribute('style')).not.toMatch(/overflow: hidden/);
     expect(document.body.querySelectorAll(cls)).toHaveLength(0);
-  });
 
-  test('body样式', () => {
-    document.body.setAttribute('style', 'background: #fff');
-    const wrapper = mount(<ImgView src="pic.png" />);
-    wrapper.find('img').simulate('click');
-    expect(document.body.getAttribute('style')).toBe('background: #fff; overflow: hidden;');
     wrapper.unmount();
   });
 
-  test('body样式2', () => {
-    document.body.setAttribute('style', 'background: #fff;');
+  test('body样式', () => {
     const wrapper = mount(<ImgView src="pic.png" />);
     wrapper.find('img').simulate('click');
-    expect(document.body.getAttribute('style')).toBe('background: #fff; overflow: hidden;');
+    expect(document.body.getAttribute('style')).toMatch(/overflow: hidden/);
     wrapper.unmount();
   });
 
   test('图片异常点击不放大', () => {
     const wrapper = shallow(<ImgView src="pic.png" />);
     wrapper.find('img').simulate('error');
+    expect(wrapper.state('isErr')).toBeTruthy();
     wrapper.find('img').simulate('click');
-    expect(wrapper.instance().view).toBeUndefined();
+    expect(wrapper.instance().container).toBeUndefined();
+    expect(wrapper.state('visible')).toBeFalsy();
     expect(document.body.querySelectorAll(cls)).toHaveLength(0);
   });
 
