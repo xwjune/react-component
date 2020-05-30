@@ -2,37 +2,39 @@
  * 缺省总条数的分页
  * 若未传属性current、pageSize，则组件内部维护
  *
- * @param {number} dataSize - 当前返回数据条数【用于判断是否为最后一页】
- * @param {number} [current] - 当前页码
- * @param {function} [onChange] - 页码改变的回调【function(page, pageSize)】
- * @param {number} [pageSize=10] - 每页条数
- * @param {boolean} [showQuickJumper=false] - 是否可以快速跳转至某页
- * @param {boolean} [showSizeChanger=false] - 是否可以改变pageSize
- * @param {string[]} [pageSizeOptions=['10','20','30','40']] - 指定每页可以显示多少条
- *
  * @date 2018/04/17
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import getPrefixCls from '../../utils/getPrefixCls';
 
-const prefixCls = getPrefixCls('pagination');
+function noop() {}
 
 export default class Pagination extends React.PureComponent {
   static propTypes = {
-    dataSize: PropTypes.number.isRequired,
+    style: PropTypes.object,
+    prefixCls: PropTypes.string,
+    className: PropTypes.string,
     current: PropTypes.number,
     pageSize: PropTypes.number,
+    dataSize: PropTypes.number.isRequired,
     onChange: PropTypes.func,
+    disabled: PropTypes.bool,
     showQuickJumper: PropTypes.bool,
     showSizeChanger: PropTypes.bool,
     pageSizeOptions: PropTypes.arrayOf(PropTypes.string),
   };
 
   static defaultProps = {
+    prefixCls: getPrefixCls('pagination'),
+    style: {},
+    className: '',
+    disabled: false,
     showQuickJumper: false,
     showSizeChanger: false,
     pageSizeOptions: ['10', '20', '30', '40'], // 默认指定每页可以显示条数
+    onChange: noop,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -49,10 +51,23 @@ export default class Pagination extends React.PureComponent {
   }
 
   state = {
-    pageSize: this.props.pageSize || 10, // 每页条数
     current: this.props.current || 1, // 当前页数
+    pageSize: this.props.pageSize || 10, // 每页条数
     jumpPage: '', // 跳转页
   };
+
+  getPageSizeOptions() {
+    const { pageSize } = this.state;
+    const { pageSizeOptions } = this.props;
+    if (pageSizeOptions.some(option => option.toString() === pageSize.toString())) {
+      return pageSizeOptions;
+    }
+    return pageSizeOptions.concat([pageSize.toString()]).sort((a, b) => {
+      const numberA = Number.isNaN(Number(a)) ? 0 : Number(a);
+      const numberB = Number.isNaN(Number(b)) ? 0 : Number(b);
+      return numberA - numberB;
+    });
+  }
 
   // 跳转至某页
   handleJump = (e) => {
@@ -78,15 +93,13 @@ export default class Pagination extends React.PureComponent {
     const pageSize = Number(e.target.value);
     const current = 1;
 
-    if (!('pageSize' in this.props)) {
-      this.setState({ pageSize });
-    }
     if (!('current' in this.props)) {
       this.setState({ current });
     }
-    if (this.props.onChange !== undefined) {
-      this.props.onChange(current, pageSize);
+    if (!('pageSize' in this.props)) {
+      this.setState({ pageSize });
     }
+    this.props.onChange(current, pageSize);
   };
 
   handleChange = (page) => {
@@ -95,21 +108,19 @@ export default class Pagination extends React.PureComponent {
         current: page,
       });
     }
-    if (this.props.onChange !== undefined) {
-      this.props.onChange(page, this.state.pageSize);
-    }
+    this.props.onChange(page, this.state.pageSize);
   };
 
   // 上一页跳转
   prev = () => {
-    if (this.hasPrev()) {
+    if (!this.props.disabled && this.hasPrev()) {
       this.handleChange(this.state.current - 1);
     }
   };
 
   // 下一页跳转
   next = () => {
-    if (this.hasNext()) {
+    if (!this.props.disabled && this.hasNext()) {
       this.handleChange(this.state.current + 1);
     }
   };
@@ -119,25 +130,50 @@ export default class Pagination extends React.PureComponent {
   };
 
   hasNext = () => {
-    return this.props.dataSize === this.state.pageSize;
+    // 当前页数据总数>=每页条数，将有下一页
+    return this.props.dataSize >= this.state.pageSize;
   };
 
   render() {
     const {
-      pageSizeOptions,
+      prefixCls,
       showQuickJumper,
       showSizeChanger,
+      style,
+      className,
+      disabled,
     } = this.props;
-    const {
-      current,
-      pageSize,
-    } = this.state;
-    const prevDisabled = !this.hasPrev(); // 上一页禁用
-    const nextDisabled = !this.hasNext(); // 下一页禁用
+    const { current, pageSize } = this.state;
+    const prevDisabled = disabled || !this.hasPrev(); // 上一页禁用
+    const nextDisabled = disabled || !this.hasNext(); // 下一页禁用
+    let changeSelect = null;
+    if (showSizeChanger) {
+      const pageSizeOptions = this.getPageSizeOptions();
+      changeSelect = (
+        <li className={`${prefixCls}-options`}>
+          <select
+            value={pageSize}
+            onChange={this.onPageSizeChange}
+            disabled={disabled}
+            aria-disabled={disabled}
+          >
+            {
+              pageSizeOptions.map((el) => (
+                <option value={el} key={el}>
+                  {el}
+                  条/页
+                </option>
+              ))
+            }
+          </select>
+        </li>
+      );
+    }
 
     return (
       <ul
-        className={prefixCls}
+        className={classNames(prefixCls, className)}
+        style={style}
         unselectable="unselectable"
       >
         <li className={`${prefixCls}-page`}>
@@ -159,25 +195,7 @@ export default class Pagination extends React.PureComponent {
         >
           下一页
         </li>
-        {
-          showSizeChanger && (
-            <li className={`${prefixCls}-options`}>
-              <select
-                value={pageSize}
-                onChange={this.onPageSizeChange}
-              >
-                {
-                  pageSizeOptions.map((el) => (
-                    <option value={el} key={el}>
-                      {el}
-                      条/页
-                    </option>
-                  ))
-                }
-              </select>
-            </li>
-          )
-        }
+        {changeSelect}
         {
           showQuickJumper && (
             <li className={`${prefixCls}-jumper`}>
@@ -187,6 +205,8 @@ export default class Pagination extends React.PureComponent {
                 value={this.state.jumpPage}
                 onChange={this.onJumperChange}
                 onKeyDown={this.handleJump}
+                disabled={disabled}
+                aria-disabled={disabled}
               />
               页
             </li>

@@ -37,6 +37,21 @@ describe('Pagination', () => {
     expect(wrapper.render()).toMatchSnapshot();
   });
 
+  test('renders: disabled', () => {
+    const wrapper = shallow(
+      <Pagination
+        dataSize={10}
+        disabled
+        showQuickJumper
+        showSizeChanger
+      />
+    );
+    expect(wrapper.render()).toMatchSnapshot();
+    // 下一页点击
+    wrapper.find(queryCls('next')).simulate('click');
+    expect(wrapper.state('current')).toBe(1);
+  });
+
   test('renders: error page', () => {
     const wrapper = shallow(
       <Pagination
@@ -205,6 +220,6 @@ describe('Pagination', () => {
         showSizeChanger
       />
     );
-    expect(wrapper.find('select').text()).toBe('10条/页20条/页');
+    expect(wrapper.find('select').text()).toBe('8条/页10条/页20条/页');
   });
 });

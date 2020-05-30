@@ -19,10 +19,7 @@
       "pre-commit": "lint-staged && npm run test"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xwjune/react-component.git"
-  },
+  "repository": "git+https://github.com/xwjune/react-component.git",
   "keywords": [
     "react",
     "react-component",
@@ -51,9 +48,10 @@
     "react": ">=16.3.0"
   },
   "dependencies": {
-    "prop-types": "^15.6.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "classnames": "^2.2.6",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
