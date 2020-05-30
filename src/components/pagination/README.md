@@ -12,7 +12,7 @@
 | onChange | 页码改变的回调，参数是改变后的页码及每页条数 | function(page, pageSize) | noop |
 | disabled | 禁用分页 | boolean | false |
 | showQuickJumper | 是否可以快速跳转至某页 | boolean | false |
-| showSizeChanger | 是否展示 pageSize 切换器 | boolean | false |
+| showSizeChanger | 是否展示`pageSize`切换器 | boolean | false |
 | pageSizeOptions | 指定每页可以显示多少条 | string[] | ['10', '20', '30', '40'] |
 
 ```jsx

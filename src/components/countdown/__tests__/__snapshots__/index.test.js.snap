@@ -3,7 +3,9 @@
 exports[`Countdown renders correctly 1`] = `null`;
 
 exports[`Countdown renders correctly 2`] = `
-<span>
+<span
+  class=""
+>
   60s
 </span>
 `;
