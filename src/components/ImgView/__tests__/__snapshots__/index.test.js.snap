@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImgView renders correctly 1`] = `
+<img
+  alt="图片"
+  height="100"
+  src="pic.png"
+  width="100"
+/>
+`;
+
+exports[`ImgView 全屏预览 1`] = `
+<div>
+  <div
+    class="jun-img-view"
+  >
+    <img
+      alt="预览图片"
+      src="pic.png"
+    />
+  </div>
+</div>
+`;
+
+exports[`ImgView 全屏预览 2`] = `
+<body
+  style="overflow: hidden;"
+>
+  <div>
+    <div
+      class="jun-img-view"
+    >
+      <img
+        alt="预览图片"
+        src="pic.png"
+      />
+    </div>
+  </div>
+</body>
+`;
