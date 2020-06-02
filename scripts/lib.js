@@ -9,3 +9,5 @@ bash('sass lib/components --no-source-map');
 bash('rimraf lib/components/**/__tests__');
 // 删除sass文件
 bash('rimraf lib/components/**/*.scss');
+// 删除md文件
+bash('rimraf lib/components/**/*.md');

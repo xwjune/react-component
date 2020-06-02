@@ -2,8 +2,8 @@
 
 ## API
 
-| Name | Description | Type | Default |
-| :--- | :--- | :--- | :--- | :--- |
+| Property | Description | Type | Default |
+| :------- | :---------- | :--- | :------ |
 | prefixCls | 样式前缀 | string | jun-pagination |
 | className | 样式类 | string  | - |
 | current | 当前页数 | number | 1 |

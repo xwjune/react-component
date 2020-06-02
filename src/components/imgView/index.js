@@ -63,18 +63,9 @@ export default class ImgView extends React.Component {
         />
         {
           this.state.visible && (
-            <Portal
-              src={this.props.src}
-              container={this.container}
-            >
-              <div
-                className={getPrefixCls('img-view')}
-                onClick={this.handleCancel}
-              >
-                <img
-                  src={this.props.src}
-                  alt="预览图片"
-                />
+            <Portal container={this.container}>
+              <div className={getPrefixCls('img-view')} onClick={this.handleCancel}>
+                <img alt="预览图片" src={this.props.src} />
               </div>
             </Portal>
           )

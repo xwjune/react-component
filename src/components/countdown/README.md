@@ -2,8 +2,8 @@
 
 ## API
 
-| Name | Description | Type | Default |
-| :--- | :--- | :--- | :--- | :--- | :--- |
+| Property | Description | Type | Default |
+| :------- | :---------- | :--- | :------ |
 | className | 样式类 | string  | - |
 | count | 计数 | number | 0 |
 | type | 类型，可选值为`normal`常规、`hour`小时 | string | normal |
