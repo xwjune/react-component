@@ -61,40 +61,27 @@ Script:
 
 ## Components
 
-### Pagination
-**缺省总条数的分页**
-
-样式：`jun-react/lib/components/pagination/style.css`
-
-| Property | Description | Type | Default |
-| :------- | :---------- | :--- | :------ |
-| dataSize | 当前返回数据条数 | number |
-| current | 当前页码 | number |
-| onChange | 页码改变的回调 | function |
-| pageSize | 每页条数 | number | 10 |
-| showQuickJumper | 是否可以快速跳转至某页 | boolean | false |
-| showSizeChanger | 是否可以改变pageSize | boolean | false |
-| pageSizeOptions | 指定每页可以显示多少条 | string[] | ['10','20','30','40'] |
-
 ### Countdown
 **倒计时**
 
-| Property | Description | Type | Default | Optional |
-| :------- | :---------- | :--- | :------ | :------- |
-| count | 计数 | number |
-| type | 类型 | string | normal | normal[常规]，hour[小时] |
-| prefix | 文案前缀 | string |
-| suffix | 文案后缀 | string |
-| onComplete | 倒计时结束回调 | function |
+| Property | Description | Type | Default |
+| :------- | :---------- | :--- | :------ |
+| className | 样式类 | string  | - |
+| count | 计数 | number | 0 |
+| type | 类型，可选值为`normal`常规、`hour`小时 | string | normal |
+| prefix | 文案前缀 | prefix | - |
+| suffix | 文案后缀 | suffix | - |
+| onComplete | 倒计时结束回调| function | - |
 
 ### ImgCatch
 **图片异常捕获**
 
 | Property | Description | Type | Default |
 | :------- | :---------- | :--- | :------ |
-| src | 图片资源 | string |
-| blanksrc | 空白页图片资源 | string |
-| onError | 图片加载失败回调 | function |
+| src | 图片资源 | string | - |
+| blanksrc | 空白页图片资源 | string | - |
+| onError | 图片加载失败回调 | function | - |
+| ... | 其他图片属性 | any | - |
 
 ### ImgView
 **移动端图片全屏预览**
@@ -103,4 +90,23 @@ Script:
 
 | Property | Description | Type | Default |
 | :------- | :---------- | :--- | :------ |
-| src | 图片资源 | string |
+| src | 图片资源 | string | - |
+| ... | 其他图片属性 | any | - |
+
+### Pagination
+**缺省总条数的分页**
+
+样式：`jun-react/lib/components/pagination/style.css`
+
+| Property | Description | Type | Default |
+| :------- | :---------- | :--- | :------ |
+| prefixCls | 样式前缀 | string | jun-pagination |
+| className | 样式类 | string  | - |
+| current | 当前页数 | number | 1 |
+| pageSize | 每页条数 | number | 10 |
+| dataSize | 当前页数据总数 | number | - |
+| onChange | 页码改变的回调，参数是改变后的页码及每页条数 | function(page, pageSize) | noop |
+| disabled | 禁用分页 | boolean | false |
+| showQuickJumper | 是否可以快速跳转至某页 | boolean | false |
+| showSizeChanger | 是否展示`pageSize`切换器 | boolean | false |
+| pageSizeOptions | 指定每页可以显示多少条 | string[] | ['10', '20', '30', '40'] |
