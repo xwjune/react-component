@@ -13,7 +13,7 @@ const getEntry = (paths) => {
       getEntry(path.join(paths, child));
     });
   } else if (stat.isFile()) {
-    if (/style.scss$/.test(paths)) {
+    if (/\.s?css$/.test(paths)) {
       entries.push(paths);
     }
   }

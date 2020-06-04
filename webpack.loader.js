@@ -18,6 +18,14 @@ const loaders = [
       },
     },
   }, {
+    test: /\.css$/,
+    exclude: /node_modules/,
+    use: [
+      MiniCssExtractPlugin.loader,
+      'css-loader',
+      'postcss-loader',
+    ],
+  }, {
     test: /\.scss$/,
     exclude: /node_modules/,
     use: [
