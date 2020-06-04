@@ -140,14 +140,16 @@ describe('Pagination', () => {
   });
 
   test('props without current、pageSize', () => {
+    const onChange = jest.fn();
     const wrapper = shallow(
-      <Pagination dataSize={10} />
+      <Pagination dataSize={10} onChange={onChange} />
     );
     expect(wrapper.state('current')).toBe(1);
 
     // 下一页点击
     wrapper.find(queryCls('next')).simulate('click');
     expect(wrapper.state('current')).toBe(2);
+    expect(onChange).toHaveBeenCalled();
 
     // 上一页点击
     wrapper.find(queryCls('prev')).simulate('click');
