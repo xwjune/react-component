@@ -46,7 +46,7 @@ describe('Countdown', () => {
       <Countdown
         count={10}
         prefix="剩余"
-        suffix="天"
+        suffix="秒"
       />
     );
     const wrapper1 = shallow(
@@ -55,10 +55,10 @@ describe('Countdown', () => {
         type="hour"
       />
     );
-    expect(wrapper.find('span').text()).toBe('剩余10天');
+    expect(wrapper.find('span').text()).toBe('剩余10秒');
     expect(wrapper1.find('span').text()).toBe('60:00');
     jest.runTimersToTime(1000);
-    expect(wrapper.find('span').text()).toBe('剩余9天');
+    expect(wrapper.find('span').text()).toBe('剩余9秒');
     expect(wrapper1.find('span').text()).toBe('59:59');
   });
 
